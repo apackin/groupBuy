@@ -28,6 +28,7 @@ export function loginUser() {
 
       // Get current ethereum wallet.
       web3.eth.getCoinbase((error, coinbase) => {
+        console.log(coinbase);
         // Log errors, if any.
         if (error) {
           console.error(error);

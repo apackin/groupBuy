@@ -20,6 +20,7 @@ export function signUpUser(name) {
 
       // Get current ethereum wallet.
       web3.eth.getCoinbase((error, coinbase) => {
+        console.log(coinbase);
         // Log errors, if any.
         if (error) {
           console.error(error);
@@ -32,10 +33,11 @@ export function signUpUser(name) {
           authenticationInstance.signup(name, {from: coinbase})
           .then(function(result) {
             // If no error, login user.
-            return dispatch(loginUser())
+            return dispatch(loginUser());
           })
           .catch(function(result) {
             // If error...
+            return alert('Invalid name, please try another');
           })
         })
       })
