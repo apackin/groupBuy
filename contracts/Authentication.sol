@@ -8,6 +8,7 @@ contract Authentication is Killable {
   }
 
   mapping (address => User) private users;
+  mapping (bytes32 => address) private userList;
 
   uint private id; // Stores user id temporarily
 
@@ -25,11 +26,13 @@ contract Authentication is Killable {
   }
 
   function signup(bytes32 name) payable returns (bytes32) {
-    // Check if user exists.
-    // If yes, return user name.
-    // If no, check if name was sent.
-    // If yes, create and return user.
+    // Check if name was sent
     // If no, throw.
+    // If yes, Check if user exist.
+    // If yes, return user name.
+    // If no, check if name is taken.
+    // If yes, throw.
+    // if no, create and return user.
 
     if (name == 0x0)
     {
@@ -38,11 +41,17 @@ contract Authentication is Killable {
 
     if (users[msg.sender].name == 0x0)
     {
+        // if user name is taken throw.
+        if (userList[name] != 0x0)
+        {
+          throw;
+        }
         users[msg.sender].name = name;
-
+        userList[name] = msg.sender;
         return (users[msg.sender].name);
     }
 
+    // This burns gas for nothing? Should there be a way to check before using gas if the name exists?
     return (users[msg.sender].name);
   }
 
@@ -56,8 +65,14 @@ contract Authentication is Killable {
 
     if (users[msg.sender].name != 0x0)
     {
+        // if user name is taken throw.
+        if (userList[name] != 0x0)
+        {
+            throw;
+        }
+        delete userList[users[msg.sender].name];
         users[msg.sender].name = name;
-
+        userList[name] = msg.sender;
         return (users[msg.sender].name);
     }
 
