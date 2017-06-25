@@ -13,30 +13,24 @@ let getWeb3 = new Promise(function(resolve, reject) {
   // Wait for loading completion to avoid race conditions with web3 injection timing.
   window.addEventListener('load', function(dispatch) {
     var results
-    var web3
 
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-    if (typeof web3 !== 'undefined') {
+    if (typeof window.web3 !== 'undefined') {
       // Use Mist/MetaMask's provider.
-      web3 = new Web3(web3.currentProvider)
-
       results = {
-        web3Instance: web3
+        web3Instance: new Web3(window.web3.currentProvider)
       }
 
       console.log('Injected web3 detected.');
 
       resolve(store.dispatch(web3Initialized(results)))
     } else {
-
       // Fallback to localhost if no web3 injection.
 
       var provider = new Web3.providers.HttpProvider('http://localhost:8545')
 
-      web3 = new Web3(provider)
-
       results = {
-        web3Instance: web3
+        web3Instance: new Web3(provider)
       }
 
       console.log('No web3 instance injected, using Local web3.');
