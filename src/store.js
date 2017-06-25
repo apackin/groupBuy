@@ -5,7 +5,7 @@ import { routerMiddleware } from 'react-router-redux'
 import reducer from './reducer'
 
 // Redux DevTools
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = compose;
 
 const routingMiddleware = routerMiddleware(browserHistory)
 
