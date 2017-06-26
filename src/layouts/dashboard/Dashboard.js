@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import DeployContractContainer from '../../user/ui/deployContract/DeployContractContainer'
 
 class Dashboard extends Component {
   constructor(props, { authData }) {
@@ -15,6 +16,7 @@ class Dashboard extends Component {
             <p><strong>Congratulations {this.props.authData.name}!</strong> If you're seeing this page, you've logged in with your own smart contract successfully.</p>
           </div>
         </div>
+        <DeployContractContainer />
       </main>
     )
   }
