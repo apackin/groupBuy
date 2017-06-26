@@ -13,6 +13,9 @@ function contractDeployed(payload) {
 }
 
 
+// TODO make it possible for the user to deploy a GroupBuy.sol
+// which becomes the owner of SingleSourceCreationToken.sol
+
 export function deployContract(contractOptions) {
   let web3 = store.getState().web3.web3Instance
 
